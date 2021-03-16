@@ -39,6 +39,7 @@ build/Release
 
 # Dependency directories
 jspm_packages/
+config/default.json
 
 # TypeScript v1 declaration files
 typings/
