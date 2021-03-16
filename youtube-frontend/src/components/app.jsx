@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import SearchBar from './SearchBar/searchBar'; 
 
 class App extends Component {
     state = { }
     render() {
         return (
-            <h1> This is our Youtube App Using a Component</h1>
+            <div className="container-fluid">
+                <SearchBar />
+            </div>
         );
     }
 }
