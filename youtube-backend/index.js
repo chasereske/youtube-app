@@ -3,9 +3,11 @@ const express = require('express');
 const app = express();
 const comments = require('./routes/comments');
 const replies = require('./routes/replies');
+const cors = require('cors');
 
 connectDB();
 
+app.use(cors());
 app.use(express.json());
 app.use('/api/comments', comments);
 app.use('/api/replies', replies);
