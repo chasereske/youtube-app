@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
 const commentSchemma = new mongoose.Schema({
     text: { type: String, required: true, minlength: 2, maxlength: 300 },

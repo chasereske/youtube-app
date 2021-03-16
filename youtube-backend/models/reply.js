@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 
 const replySchemma = new mongoose.Schema({
     text: { type: String, Required: true, minlength: 2, maxlength: 300 },
