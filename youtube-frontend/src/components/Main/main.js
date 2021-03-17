@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import SearchBar from "../SearchBar/searchBar";
+import VideoSearchResult from "../VideoSearchResult/videoSearchResult";
 import { key, max } from "../../api/apiKey";
 
 class Main extends Component {
@@ -19,11 +20,11 @@ class Main extends Component {
   getData = async () => {
     await axios
       .get(
-        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&${max}=1&q=${this.state.searchCriteria}&key=${key}`
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=${max}&q=${this.state.searchCriteria}&key=${key}`
       )
       .then((res) => {
-        this.setState({ videoResults: res.data });
-        console.log(res.data);
+        this.setState({ videoResults: res.data.items });
+        console.log(this.state.videoResults);
       })
       .catch((err) => {
         console.log(err);
@@ -32,7 +33,10 @@ class Main extends Component {
 
   render() {
     return (
-      <SearchBar handleChange={this.handleChange} getData={this.getData} />
+      <div>
+        <SearchBar handleChange={this.handleChange} getData={this.getData} />
+        <VideoSearchResult videoResults={this.state.videoResults} />
+      </div>
     );
   }
 }
