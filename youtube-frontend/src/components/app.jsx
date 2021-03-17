@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
-import SearchBar from './SearchBar/searchBar'; 
+import React, { Component } from "react";
+import Header from "./Header/header";
+import Main from "./Main/main";
 
 class App extends Component {
-    state = { }
-    render() {
-        return (
-            <div className="container-fluid">
-                <SearchBar />
-            </div>
-        );
-    }
+  state = {};
+  render() {
+    return (
+      <div className="container-fluid">
+        <Header />
+        <Main />
+      </div>
+    );
+  }
 }
 
 export default App;
