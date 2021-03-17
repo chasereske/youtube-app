@@ -10,6 +10,7 @@ function SearchBar(props) {
         <i className="fas fa-search"></i>
         <input type="submit" value="submit"></input>
       </form>
+      <button onClick={props.getData}>Fetch Songs Data</button>
     </div>
   );
 }

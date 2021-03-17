@@ -7,6 +7,7 @@ class Main extends Component {
     super(props);
     this.state = {
       searchCriteria: "",
+      video: [],
     };
   }
 
@@ -18,18 +19,22 @@ class Main extends Component {
   handleSubmit = async (e) => {
     alert(`${this.state.searchCriteria}`);
 
+    e.target.preventDefault();
+  };
+
+  getData = async () => {
+    // console.log(`Button`);
     await axios
       .get(
-        "https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyDTN74_Qbo-rlHs4Nz6un15FD5ReEgNa8s&part=snippet,contentDetails,statistics,status"
+        `https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=&part=snippet,statistics`
       )
       .then((res) => {
-        console.log(res);
+        console.log();
+        this.setState({ video: res.data });
       })
       .catch((err) => {
         console.log(err);
       });
-
-    e.target.preventDefault();
   };
 
   render() {
@@ -37,6 +42,7 @@ class Main extends Component {
       <SearchBar
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
+        getData={this.getData}
       />
     );
   }
