@@ -1,36 +1,29 @@
 import React, { Component } from "react";
 import axios from "axios";
 import SearchBar from "../SearchBar/searchBar";
+import { key, max } from "../../api/apiKey";
 
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
       searchCriteria: "",
-      video: [],
+      videoResults: [],
     };
   }
 
   handleChange = (e) => {
     this.setState({ searchCriteria: e.target.value });
-    console.log(this.state.searchCriteria);
-  };
-
-  handleSubmit = async (e) => {
-    alert(`${this.state.searchCriteria}`);
-
-    e.target.preventDefault();
   };
 
   getData = async () => {
-    // console.log(`Button`);
     await axios
       .get(
-        `https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=&part=snippet,statistics`
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&${max}=1&q=${this.state.searchCriteria}&key=${key}`
       )
       .then((res) => {
-        console.log();
-        this.setState({ video: res.data });
+        this.setState({ videoResults: res.data });
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -39,11 +32,7 @@ class Main extends Component {
 
   render() {
     return (
-      <SearchBar
-        handleChange={this.handleChange}
-        handleSubmit={this.handleSubmit}
-        getData={this.getData}
-      />
+      <SearchBar handleChange={this.handleChange} getData={this.getData} />
     );
   }
 }

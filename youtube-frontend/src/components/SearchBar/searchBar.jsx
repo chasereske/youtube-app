@@ -4,13 +4,12 @@ import "./searchBar.css";
 function SearchBar(props) {
   return (
     <div className="search-bar-nav">
-      <form onSubmit={props.handleSubmit}>
-        <label>Enter Search:</label>
-        <input type="text" onChange={props.handleChange}></input>
-        <i className="fas fa-search"></i>
-        <input type="submit" value="submit"></input>
+      <form>
+        <label>
+          <input type="text" onChange={props.handleChange}></input>
+          <i className="fas fa-search" onClick={props.getData}></i>
+        </label>
       </form>
-      <button onClick={props.getData}>Fetch Songs Data</button>
     </div>
   );
 }
