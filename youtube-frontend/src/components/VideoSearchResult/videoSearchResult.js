@@ -1,7 +1,6 @@
 import React from "react";
 
 function VideoSearchResult(props) {
-  //   const videoResults = props.videoResults;
   if (props.videoResults) {
     const videoResult = props.videoResults.map((el, index) => {
       return (
@@ -14,6 +13,7 @@ function VideoSearchResult(props) {
           ></img>
           <div className="">
             <div>{el.snippet.title}</div>
+            <div>{el.snippet.description}</div>
           </div>
         </div>
       );

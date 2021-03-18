@@ -11,7 +11,8 @@ class Main extends Component {
     this.state = {
       searchCriteria: "",
       videoResults: [],
-      selectedVideo: "",
+      selectedVideoId: null,
+      selectedVideoDetails: null,
     };
   }
 
@@ -27,6 +28,7 @@ class Main extends Component {
       )
       .then((res) => {
         this.setState({ videoResults: res.data.items });
+        console.log(this.state.videoResults);
       })
       .catch((err) => {
         console.log(err);
@@ -34,18 +36,27 @@ class Main extends Component {
   };
 
   playVideo = (videoToPlay) => {
-    this.setState({ selectedVideo: videoToPlay.id.videoId });
+    this.setState({
+      selectedVideoId: videoToPlay.id.videoId,
+      selectedVideoDetails: videoToPlay,
+    });
+    console.log(this.state.selectedVideoDetails);
   };
 
   render() {
     return (
       <div>
         <SearchBar handleChange={this.handleChange} getData={this.getData} />
-        <VideoSearchResult
-          videoResults={this.state.videoResults}
-          playVideo={this.playVideo}
-        />
-        <VideoPlayer videoId={this.state.selectedVideo} />
+        <div>
+          <VideoPlayer
+            // video={this.state.selectedVideoId}
+            videoDetails={this.state.selectedVideoDetails}
+          />
+          <VideoSearchResult
+            videoResults={this.state.videoResults}
+            playVideo={this.playVideo}
+          />
+        </div>
       </div>
     );
   }
