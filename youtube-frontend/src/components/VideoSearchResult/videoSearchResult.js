@@ -10,6 +10,7 @@ function VideoSearchResult(props) {
             className=""
             src={el.snippet.thumbnails.medium.url}
             alt={el.snippet.description}
+            onClick={() => props.playVideo(el)}
           ></img>
           <div className="">
             <div>{el.snippet.title}</div>

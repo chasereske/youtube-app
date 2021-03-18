@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import SearchBar from "../SearchBar/searchBar";
 import VideoSearchResult from "../VideoSearchResult/videoSearchResult";
+import VideoPlayer from "../VideoPlayer/videoPlayer";
 import { key, max } from "../../api/apiKey";
 
 class Main extends Component {
@@ -17,6 +18,7 @@ class Main extends Component {
     this.setState({ searchCriteria: e.target.value });
   };
 
+  // GET DATA FROM YOUTUBE BASED ON USERS SEARCH CRITERIA
   getData = async () => {
     await axios
       .get(
@@ -31,11 +33,19 @@ class Main extends Component {
       });
   };
 
+  playVideo = () => {
+    alert(`I have been clicked!`);
+  };
+
   render() {
     return (
       <div>
         <SearchBar handleChange={this.handleChange} getData={this.getData} />
-        <VideoSearchResult videoResults={this.state.videoResults} />
+        <VideoSearchResult
+          videoResults={this.state.videoResults}
+          playVideo={this.playVideo}
+        />
+        <VideoPlayer />
       </div>
     );
   }
