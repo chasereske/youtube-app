@@ -27,7 +27,6 @@ class Main extends Component {
       )
       .then((res) => {
         this.setState({ videoResults: res.data.items });
-        console.log(this.state.videoResults);
       })
       .catch((err) => {
         console.log(err);
@@ -36,9 +35,6 @@ class Main extends Component {
 
   playVideo = (videoToPlay) => {
     this.setState({ selectedVideo: videoToPlay.id.videoId });
-    console.log(videoToPlay.id.videoId);
-    console.log(this.state.selectedVideo);
-    console.log(videoToPlay);
   };
 
   render() {
