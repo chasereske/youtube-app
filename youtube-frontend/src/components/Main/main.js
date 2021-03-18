@@ -11,6 +11,7 @@ class Main extends Component {
     this.state = {
       searchCriteria: "",
       videoResults: [],
+      selectedVideo: "",
     };
   }
 
@@ -33,8 +34,11 @@ class Main extends Component {
       });
   };
 
-  playVideo = () => {
-    alert(`I have been clicked!`);
+  playVideo = (videoToPlay) => {
+    this.setState({ selectedVideo: videoToPlay.id.videoId });
+    console.log(videoToPlay.id.videoId);
+    console.log(this.state.selectedVideo);
+    console.log(videoToPlay);
   };
 
   render() {
@@ -45,7 +49,7 @@ class Main extends Component {
           videoResults={this.state.videoResults}
           playVideo={this.playVideo}
         />
-        <VideoPlayer />
+        <VideoPlayer videoId={this.state.selectedVideo} />
       </div>
     );
   }
