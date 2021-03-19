@@ -4,7 +4,7 @@ const Joi = require("joi");
 
 const videoSchema = new mongoose.Schema({
   videoId: { type: String, required: true },
-  comments: { type: [commentSchema] },
+  comments: { type: [commentSchema], default: [] },
 });
 
 const Video = mongoose.model("Video", videoSchema);

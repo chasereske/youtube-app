@@ -41,6 +41,15 @@ class Main extends Component {
       selectedVideoDetails: videoToPlay,
     });
     console.log(this.state.selectedVideoDetails);
+    this.getCommentsOnSelectedVideo();
+  };
+
+  getCommentsOnSelectedVideo = () => {
+    axios
+      .get(`http://localhost:5000/api/videos/6053df2a08b7a50675ac7ead`)
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   render() {
