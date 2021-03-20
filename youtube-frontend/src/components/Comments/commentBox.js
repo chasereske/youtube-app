@@ -1,82 +1,46 @@
-import React, { useState, useRef } from "react";
-import cn from "classnames";
+import axios from "axios";
+import React, { useState } from "react";
 import "./commentBox.css";
+// import React, { useState, useRef } from "react";
+// import cn from "classnames";
+// import "./commentBox.css";
 
-const INITIAL_HEIGHT = 46;
+function CommentBox(props) {
+  const [comment, setComment] = useState({ text: "" });
+  const [submitButton, setSubmitButton] = useState(true);
 
-const CommentBox = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [commentValue, setCommentValue] = useState("");
-
-  const outerHeight = useRef(INITIAL_HEIGHT);
-  const textRef = useRef(null);
-  const containerRef = useRef(null);
-
-  const onExpand = () => {
-    if (!isExpanded) {
-      outerHeight.current = containerRef.current.scrollHeight;
-      setIsExpanded(true);
-    }
+  const handleChange = (e) => {
+    setComment({ text: e.target.value });
+    console.log(comment);
+    if (comment) setSubmitButton(false);
+    //if (comment === undefined) submitButton = false;
   };
 
-  const onChange = (e) => {
-    setCommentValue(e.target.value);
-  };
-
-  const onClose = () => {
-    setCommentValue("");
-    setIsExpanded(false);
-  };
-
-  const onSubmit = (e) => {
+  const cancelComment = (e) => {
     e.preventDefault();
-    console.log("send the form data somewhere");
+    alert(`Cancel`);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    alert(`Submit`);
+
+    axios.post(`http://localhost:5000/api/videos/${props.videoId}`, comment);
   };
 
   return (
-    <form
-      onSubmit={onSubmit}
-      ref={containerRef}
-      className={cn("comment-box", {
-        expanded: isExpanded,
-        collapsed: !isExpanded,
-        modified: commentValue.length > 0,
-      })}
-      style={{
-        minHeight: isExpanded ? outerHeight.current : INITIAL_HEIGHT,
-      }}
-    >
-      {/* <div className="header">
-        <div className="user">
-          <img src="avatar/path" alt="User avatar" />
-          <span>User Name</span>
-        </div>
-      </div> */}
-
-      <label className="" htmlFor="comment">
-        What are your thoughts?
-      </label>
-      <textarea
-        ref={textRef}
-        onClick={onExpand}
-        onFocus={onExpand}
-        onChange={onChange}
-        className="comment-field"
-        placeholder="What are your thoughts?"
-        value={commentValue}
-        name="comment"
-        id="comment"
-      />
-      <div className="actions">
-        <button type="button" className="cancel" onClick={onClose}>
-          Cancel
-        </button>
-        <button type="submit" disabled={commentValue.length < 1}>
-          Send
-        </button>
-      </div>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="comment" onChange={handleChange}></input>
+        <>
+          <button type="button" onClick={cancelComment}>
+            CANCEL
+          </button>
+          <input type="submit" disabled={submitButton} value="SEND"></input>
+        </>
+      </form>
+    </>
   );
-};
+}
 
 export default CommentBox;

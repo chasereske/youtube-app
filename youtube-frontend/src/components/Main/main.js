@@ -35,7 +35,7 @@ class Main extends Component {
       });
   };
 
-  playVideo = (videoToPlay) => {
+  selectVideoToPlay = (videoToPlay) => {
     this.setState({
       selectedVideoId: videoToPlay.id.videoId,
       selectedVideoDetails: videoToPlay,
@@ -44,29 +44,25 @@ class Main extends Component {
     this.getCommentsOnSelectedVideo();
   };
 
+  // GET COMMENTS ON SELECTED VIDEO WHEN CLICKED
   getCommentsOnSelectedVideo = () => {
-    axios
-      .get(`http://localhost:5000/api/videos/6053df2a08b7a50675ac7ead`)
-      .then((res) => {
-        console.log(res.data);
-      });
+    axios.get(`http://localhost:5000/api/videos/xVz150jGhydm1a`).then((res) => {
+      console.log(res.data);
+    });
   };
 
   render() {
     return (
-      <div>
+      <>
         <SearchBar handleChange={this.handleChange} getData={this.getData} />
         <div>
-          <VideoPlayer
-            // video={this.state.selectedVideoId}
-            videoDetails={this.state.selectedVideoDetails}
-          />
+          <VideoPlayer videoDetails={this.state.selectedVideoDetails} />
           <VideoSearchResult
             videoResults={this.state.videoResults}
-            playVideo={this.playVideo}
+            selectVideoToPlay={this.selectVideoToPlay}
           />
         </div>
-      </div>
+      </>
     );
   }
 }

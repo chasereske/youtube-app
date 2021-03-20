@@ -1,5 +1,5 @@
 import React from "react";
-//import CommentBox from "../Comments/commentBox";
+import CommentBox from "../Comments/commentBox";
 
 function VideoPlayer(props) {
   const videoDetails = props.videoDetails;
@@ -7,15 +7,16 @@ function VideoPlayer(props) {
   if (!videoDetails) {
     return null;
   } else {
-    let videoSrc = `https://www.youtube.com/embed/${videoDetails.id.videoId}`;
+    const videoId = videoDetails.id.videoId;
+    let videoSrc = `https://www.youtube.com/embed/${videoId}`;
     return (
       <div>
         <div>
           <iframe src={videoSrc} title={videoDetails.snippet.title}></iframe>
           <div>Title: {videoDetails.snippet.title}</div>
           <div>Description: {videoDetails.snippet.description}</div>
+          <CommentBox videoId={videoId} />
         </div>
-        <div>{/* <CommentBox /> */}</div>
       </div>
     );
   }
