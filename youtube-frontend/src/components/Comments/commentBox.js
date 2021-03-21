@@ -11,21 +11,26 @@ function CommentBox(props) {
 
   const handleChange = (e) => {
     setComment({ text: e.target.value });
-    console.log(comment);
+    //console.log(comment);
     if (comment) setSubmitButton(false);
-    //if (comment === undefined) submitButton = false;
   };
 
   const cancelComment = (e) => {
     e.preventDefault();
-    alert(`Cancel`);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Submit`);
+    e.target.reset();
 
-    axios.post(`http://localhost:5000/api/videos/${props.videoId}`, comment);
+    axios
+      .post(`http://localhost:5000/api/videos/${props.videoId}`, comment)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -38,6 +43,7 @@ function CommentBox(props) {
           </button>
           <input type="submit" disabled={submitButton} value="SEND"></input>
         </>
+        <div></div>
       </form>
     </>
   );

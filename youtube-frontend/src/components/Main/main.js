@@ -3,6 +3,7 @@ import axios from "axios";
 import SearchBar from "../SearchBar/searchBar";
 import VideoSearchResult from "../VideoSearchResult/videoSearchResult";
 import VideoPlayer from "../VideoPlayer/videoPlayer";
+import DisplayComments from "../Comments/displayComments";
 import { key, max } from "../../api/apiKey";
 
 class Main extends Component {
@@ -13,6 +14,7 @@ class Main extends Component {
       videoResults: [],
       selectedVideoId: null,
       selectedVideoDetails: null,
+      videoComments: null,
     };
   }
 
@@ -35,20 +37,28 @@ class Main extends Component {
       });
   };
 
-  selectVideoToPlay = (videoToPlay) => {
-    this.setState({
-      selectedVideoId: videoToPlay.id.videoId,
-      selectedVideoDetails: videoToPlay,
-    });
-    console.log(this.state.selectedVideoDetails);
-    this.getCommentsOnSelectedVideo();
-  };
+  selectVideoToPlay = async (videoToPlay) => {
+    const videoId = videoToPlay.id.videoId;
 
-  // GET COMMENTS ON SELECTED VIDEO WHEN CLICKED
-  getCommentsOnSelectedVideo = () => {
-    axios.get(`http://localhost:5000/api/videos/xVz150jGhydm1a`).then((res) => {
-      console.log(res.data);
+    this.setState({
+      selectedVideoId: videoId,
+      selectedVideoDetails: videoToPlay,
+      videoComments: null,
     });
+
+    await axios
+      .get(`http://localhost:5000/api/videos/${videoId}`)
+      .then((res) => {
+        this.setState({
+          videoComments: res.data,
+        });
+        console.log(res.data[0]);
+        console.log(res.data[0].text);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    //console.log(this.state.selectedVideoDetails);
   };
 
   render() {
@@ -57,6 +67,7 @@ class Main extends Component {
         <SearchBar handleChange={this.handleChange} getData={this.getData} />
         <div>
           <VideoPlayer videoDetails={this.state.selectedVideoDetails} />
+          <DisplayComments comments={this.state.videoComments} />
           <VideoSearchResult
             videoResults={this.state.videoResults}
             selectVideoToPlay={this.selectVideoToPlay}

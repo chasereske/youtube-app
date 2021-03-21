@@ -39,6 +39,10 @@ router.post("/:videoId", async (req, res) => {
       await video.save();
     }
 
+    const { error } = validateComment(req.body);
+
+    if (error) return res.status(400).send(error);
+
     // CREATE COMMENT
     const comment = new Comment({
       text: req.body.text,
