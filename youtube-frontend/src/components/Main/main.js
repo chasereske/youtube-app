@@ -24,17 +24,20 @@ class Main extends Component {
 
   // GET DATA FROM YOUTUBE BASED ON USERS SEARCH CRITERIA
   getData = async () => {
-    await axios
-      .get(
-        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=${max}&q=${this.state.searchCriteria}&key=${key}`
-      )
-      .then((res) => {
-        this.setState({ videoResults: res.data.items });
-        console.log(this.state.videoResults);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (this.state.searchCriteria !== "") {
+      this.setState({ selectedVideoDetails: null, videoComments: null });
+      await axios
+        .get(
+          `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=${max}&q=${this.state.searchCriteria}&key=${key}`
+        )
+        .then((res) => {
+          this.setState({ videoResults: res.data.items });
+          console.log(this.state.videoResults);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   selectVideoToPlay = async (videoToPlay) => {
@@ -54,6 +57,7 @@ class Main extends Component {
         });
         console.log(res.data[0]);
         console.log(res.data[0].text);
+        console.log(this.state.selectedVideoId);
       })
       .catch((err) => {
         console.log(err);
