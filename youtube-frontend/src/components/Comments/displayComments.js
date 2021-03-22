@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+//import axios from "axios";
+import React from "react";
 import "./displayComments.css";
 
 function DisplayComments(props) {
@@ -16,7 +16,7 @@ function DisplayComments(props) {
 
   const likeComment = async (comment) => {
     alert(`Comment liked ${comment.likes + 1} times. ${comment._id}`);
-    const likes = { likes: comment.likes };
+    //const likes = { likes: comment.likes };
     // await axios
     //   .put(`http://localhost:5000/${props.videoId}/${comment._id}`, likes)
     //   .then((res) => {

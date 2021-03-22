@@ -1,10 +1,28 @@
 .search-bar-nav {
-  /* background-color: lightblue; */
-  /* width: 100%; */
-  margin-top: 1rem;
+  margin: 1rem 0 0 2rem;
+}
+
+.search-box {
+  border: 0.2rem solid #ac0b21f8;
+  display: inline-block;
+}
+
+.search-box:hover {
+  border: 0.2rem solid #44040df8;
+}
+
+.center {
+  margin-left: 50%;
+  transform: translateX(-10%);
 }
 
 h1 {
   padding-bottom: 0.2em;
   padding-left: 1em;
+}
+
+.search-icon {
+  margin-left: 0.7rem;
+  font-size: 1.5rem;
+  color: #ac0b21f8;
 }

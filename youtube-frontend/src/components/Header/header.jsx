@@ -3,8 +3,8 @@ import "./header.css";
 
 function Header() {
   return (
-    <div className="text-center text-uppercase">
-      <h1>VideoTube</h1>
+    <div className="header">
+      <h1 className="text-center">VideoTube</h1>
     </div>
   );
 }
