@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap");
+
 .search-bar-nav {
-  margin: 1rem 0 0 2rem;
+  margin: 1rem 0 3rem 0;
 }
 
 .search-box {
@@ -24,5 +26,9 @@ h1 {
 .search-icon {
   margin-left: 0.7rem;
   font-size: 1.5rem;
+  color: #ac0b21f8;
+}
+input[text] {
+  font-family: "Berkshire Swash", cursive;
   color: #ac0b21f8;
 }

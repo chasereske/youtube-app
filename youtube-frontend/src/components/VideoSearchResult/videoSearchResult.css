@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap");
+
+.search-result-thumbnail {
+  border: 0.5rem solid #ac0b21f8;
+}
+
+.title-description {
+  font-family: "Berkshire Swash", cursive;
+}
+
+.float {
+  margin-right: 3rem;
+  float: right;
+}

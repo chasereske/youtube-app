@@ -7,8 +7,3 @@
   font-size: 10rem;
   transform: skewX(30deg);
 }
-
-input[text] {
-  font-family: "Berkshire Swash", cursive;
-  color: #ac0b21f8;
-}
