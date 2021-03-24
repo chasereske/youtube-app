@@ -1,50 +1,98 @@
-//import axios from "axios";
-import React from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import DisplayReplies from "../Replies/displayReplies";
 import "./displayComments.css";
 
 function DisplayComments(props) {
   const comments = props.comments;
+
+  const [likes, updatedLikes] = useState(null);
+  const [dislikes, updatedDislikes] = useState(null);
+
   //const [comments, updateComment] = useState(null);
 
   // useEffect(() => {
   //   updateComment(props.comments);
   // }, [props.comments]);
 
+  // useEffect(() => {
+  //   function likeComment(comment) {
+  //     axios
+  //       .put(
+  //         `http://localhost:5000/api/videos/${props.videoId}/like-comments/${comment._id}`
+  //       )
+  //       .then((res) => {
+  //         console.log(res.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   }
+  // });
+
   if (!comments) {
     return null;
   }
 
+  // LIKE COMMENT
   const likeComment = async (comment) => {
-    alert(`Comment liked ${comment.likes + 1} times. ${comment._id}`);
-    //const likes = { likes: comment.likes };
-    // await axios
-    //   .put(`http://localhost:5000/${props.videoId}/${comment._id}`, likes)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    await axios
+      .put(
+        `http://localhost:5000/api/videos/${props.videoId}/like-comments/${comment._id}`
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-  const dislikeComment = (comment) => {
-    alert(`Comment disliked ${comment.dislikes} times`);
+
+  // DISLIKE COMMENT
+  const dislikeComment = async (comment) => {
+    await axios
+      .put(
+        `http://localhost:5000/api/videos/${props.videoId}/dislike-comments/${comment._id}`
+      )
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+
+  // DISPLAY REPLY BOX
+  const displayReplyBox = () => {
+    alert(`Reply to this comment`);
   };
 
   const displayComments = comments.map((comment, index) => {
-    // const [likes, updateLikes] = useState(comment.likes);
-    // const [dislikes, updateDisikes] = useState(comment.dislikes);
+    // updatedLikes(comment.likes);
+    // updatedDislikes(comment.dislikes);
     return (
-      <div key={index}>
+      <div key={index} className="comment-text">
         <p>{comment.text}</p>
-        <i className="far fa-thumbs-up" onClick={() => likeComment(comment)}>
-          {comment.likes}
-        </i>
         <i
-          className="far fa-thumbs-down"
+          className="far fa-thumbs-up like-unlike-btn"
+          onClick={() => likeComment(comment)}
+        ></i>
+        <span className="likes-num">{comment.likes}</span>
+        <i
+          className="far fa-thumbs-down like-unlike-btn"
           onClick={() => dislikeComment(comment)}
-        >
-          {comment.dislikes}
-        </i>
+        ></i>
+        <span className="likes-num">{comment.dislikes}</span>
+        <span className="reply-button" onClick={displayReplyBox}>
+          reply
+        </span>
+        <div>
+          {comment.replies.map((rep, index) => {
+            return (
+              <p className="reply" key={index}>
+                {rep.text}
+              </p>
+            );
+          })}
+        </div>
+        <hr></hr>
       </div>
     );
   });
@@ -52,3 +100,5 @@ function DisplayComments(props) {
 }
 
 export default DisplayComments;
+
+// <DisplayReplies replies={comment.replies.text} />

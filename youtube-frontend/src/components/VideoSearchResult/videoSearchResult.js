@@ -5,7 +5,7 @@ function VideoSearchResult(props) {
   if (props.videoResults) {
     const videoResult = props.videoResults.map((el, index) => {
       return (
-        <div key={index} className="mx-auto float">
+        <div key={index} className="">
           <img
             className="search-result-thumbnail"
             src={el.snippet.thumbnails.medium.url}

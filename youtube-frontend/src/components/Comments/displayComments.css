@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed&display=swap");
+
+.comment-text {
+  font-family: "Saira Semi Condensed", sans-serif;
+}
+
+.like-unlike-btn {
+  padding: 0 0.1rem 0 0.1rem;
+  color: #ac0b21f8;
+  cursor: pointer;
+}
+
+.reply-button {
+  color: #ac0b21f8;
+  font-weight: bold;
+  padding-left: 0.3rem;
+  cursor: pointer;
+}
+
+.likes-num {
+  padding: 0 0.3rem 0 0.3rem;
+}
+
+.reply {
+  padding-top: 1rem;
+  padding-left: 2rem;
+}

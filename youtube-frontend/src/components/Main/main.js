@@ -4,6 +4,7 @@ import SearchBar from "../SearchBar/searchBar";
 import VideoSearchResult from "../VideoSearchResult/videoSearchResult";
 import VideoPlayer from "../VideoPlayer/videoPlayer";
 import DisplayComments from "../Comments/displayComments";
+import "./main.css";
 import { key, max } from "../../api/apiKey";
 
 class Main extends Component {
@@ -53,25 +54,23 @@ class Main extends Component {
       .get(`http://localhost:5000/api/videos/${videoId}`)
       .then((res) => {
         this.setState({
-          videoComments: res.data,
+          videoComments: res.data.comments,
         });
-        console.log(res.data[0]);
-        console.log(res.data[0].text);
-        console.log(this.state.selectedVideoId);
-      })
-      .catch((err) => {
-        console.log(err);
       });
-    //console.log(this.state.selectedVideoDetails);
   };
 
   render() {
     return (
       <>
         <SearchBar handleChange={this.handleChange} getData={this.getData} />
-        <div>
+        <div className="video-player-section">
           <VideoPlayer videoDetails={this.state.selectedVideoDetails} />
-          <DisplayComments comments={this.state.videoComments} />
+          <DisplayComments
+            comments={this.state.videoComments}
+            videoId={this.state.selectedVideoId}
+          />
+        </div>
+        <div className="search-result-section">
           <VideoSearchResult
             videoResults={this.state.videoResults}
             selectVideoToPlay={this.selectVideoToPlay}

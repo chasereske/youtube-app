@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .search-result-thumbnail {
   border: 0.5rem solid #ac0b21f8;
 }
@@ -8,7 +14,6 @@
   font-family: "Berkshire Swash", cursive;
 }
 
-.float {
-  margin-right: 3rem;
+/* .float {
   float: right;
-}
+} */

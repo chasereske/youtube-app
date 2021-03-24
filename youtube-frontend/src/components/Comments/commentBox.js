@@ -8,9 +8,6 @@ import "./commentBox.css";
 function CommentBox(props) {
   const [comment, setComment] = useState({ text: "" });
   const [submitButton, setSubmitButton] = useState(true);
-  let [defaultRender, updateRender] = useState(
-    <p onClick={showCommentForm}>Add Comment</p>
-  );
 
   // TRACK AND STORE COMMENT TEXT
   const handleChange = (e) => {
@@ -21,7 +18,6 @@ function CommentBox(props) {
   // CANCEL COMMENT FORM
   const cancelComment = (e) => {
     e.preventDefault();
-    defaultRender = <p onClick={showCommentForm}>Add Comment</p>;
   };
 
   // SUBMIT COMMENT
@@ -34,7 +30,6 @@ function CommentBox(props) {
         .post(`http://localhost:5000/api/videos/${props.videoId}`, comment)
         .then((res) => {
           console.log(res.data);
-          defaultRender = <p onClick={showCommentForm}>Add Comment</p>;
         })
         .catch((err) => {
           console.log(err);
@@ -42,18 +37,7 @@ function CommentBox(props) {
     }
   };
 
-  // ADD COMMENT CLICK
-  useEffect(() => {});
-
-  function showCommentForm() {
-    alert(`Clicked Comment Form`);
-    //defaultRender = commentForm;
-    updateRender(commentForm);
-  }
-
-  defaultRender = <p onClick={showCommentForm}>Add Comment</p>;
-
-  const commentForm = (
+  return (
     <form onSubmit={handleSubmit}>
       <input type="text" name="comment" onChange={handleChange}></input>
       <>
@@ -65,8 +49,6 @@ function CommentBox(props) {
       <div></div>
     </form>
   );
-
-  return <>{defaultRender}</>;
 }
 
 export default CommentBox;

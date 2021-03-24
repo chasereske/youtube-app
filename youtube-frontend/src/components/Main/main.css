@@ -1,0 +1,19 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.search-result-section {
+  float: right;
+  width: 30vw;
+  margin-right: 3rem;
+  /* clear: left; */
+}
+
+.video-player-section {
+  float: left;
+  width: 60vw;
+  margin-left: 3rem;
+  /* clear: right; */
+}
