@@ -13,7 +13,7 @@ function validateReply(reply) {
     text: Joi.string().required().min(2).max(150),
     date: Joi.date().default(Date.now),
   });
-  schema.validate(reply);
+  return schema.validate(reply);
 }
 
 exports.replySchema = replySchema;
