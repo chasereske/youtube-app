@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-function DisplayReplies(props) {
-  const [replies, updateReply] = useState(null);
+function DisplayReplies({ replies }) {
+  // const [repliesNum, setReplies] = useState(replies);
 
-  useEffect(() => {
-    updateReply(props.replies);
-  }, [props.replies]);
+  // useEffect(() => {
+  //   likeComment();
+  //   dislikeComment();
+  //   setReplies(`${replies + 1}`);
+  // });
 
   if (!replies) return null;
 
-  const reply = replies.map((rep) => {
-    return <p>{rep.text}</p>;
-  });
+  const reply = replies.map((rep, index) => (
+    <p className="reply" key={index}>
+      {rep.text}
+    </p>
+  ));
 
   return reply;
 }

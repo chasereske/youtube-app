@@ -1,34 +1,29 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import DisplayReplies from "../Replies/displayReplies";
+//import ReplyTextBox from "../Replies/replyTextBox";
 import "./displayComments.css";
 
 function DisplayComments(props) {
   const comments = props.comments;
+  //const [showReplyBox, setShowReplyBox] = useState(false);
+  const [displayForm, setDisplayForm] = useState(null);
 
-  const [likes, updatedLikes] = useState(null);
-  const [dislikes, updatedDislikes] = useState(null);
+  // DISPLAY REPLY BOX
+  const displayReplyBox = (e) => {
+    //setShowReplyBox(true);
 
-  //const [comments, updateComment] = useState(null);
+    setDisplayForm(
+      <form onSubmit={postReply}>
+        <textarea name="reply"></textarea>
+        <button onClick={cancelReply}>Cancel</button>
+        <button type="submit">Reply</button>
+      </form>
+    );
 
-  // useEffect(() => {
-  //   updateComment(props.comments);
-  // }, [props.comments]);
-
-  // useEffect(() => {
-  //   function likeComment(comment) {
-  //     axios
-  //       .put(
-  //         `http://localhost:5000/api/videos/${props.videoId}/like-comments/${comment._id}`
-  //       )
-  //       .then((res) => {
-  //         console.log(res.data);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   }
-  // });
+    function postReply() {}
+    function cancelReply() {}
+  };
 
   if (!comments) {
     return null;
@@ -50,6 +45,7 @@ function DisplayComments(props) {
 
   // DISLIKE COMMENT
   const dislikeComment = async (comment) => {
+    comment.dislikes += 1;
     await axios
       .put(
         `http://localhost:5000/api/videos/${props.videoId}/dislike-comments/${comment._id}`
@@ -59,46 +55,38 @@ function DisplayComments(props) {
       });
   };
 
-  // DISPLAY REPLY BOX
-  const displayReplyBox = () => {
-    alert(`Reply to this comment`);
-  };
-
-  const displayComments = comments.map((comment, index) => {
-    // updatedLikes(comment.likes);
-    // updatedDislikes(comment.dislikes);
-    return (
-      <div key={index} className="comment-text">
-        <p>{comment.text}</p>
-        <i
-          className="far fa-thumbs-up like-unlike-btn"
-          onClick={() => likeComment(comment)}
-        ></i>
-        <span className="likes-num">{comment.likes}</span>
-        <i
-          className="far fa-thumbs-down like-unlike-btn"
-          onClick={() => dislikeComment(comment)}
-        ></i>
-        <span className="likes-num">{comment.dislikes}</span>
-        <span className="reply-button" onClick={displayReplyBox}>
-          reply
-        </span>
-        <div>
-          {comment.replies.map((rep, index) => {
-            return (
-              <p className="reply" key={index}>
-                {rep.text}
-              </p>
-            );
-          })}
-        </div>
-        <hr></hr>
+  const displayComments = comments.map((comment, index) => (
+    <div key={index} className="comment-text">
+      <p>{comment.text}</p>
+      <i
+        className="far fa-thumbs-up like-unlike-btn"
+        onClick={() => likeComment(comment)}
+      ></i>
+      <span className="likes-num">{comment.likes}</span>
+      <i
+        className="far fa-thumbs-down like-unlike-btn"
+        onClick={() => dislikeComment(comment)}
+      ></i>
+      <span className="likes-num">{comment.dislikes}</span>
+      <span className="reply-button" onClick={displayReplyBox}>
+        reply
+      </span>
+      <div>{displayForm}</div>
+      {/* <ReplyTextBox /> */}
+      <div>
+        <DisplayReplies
+          replies={comment.replies}
+          like={likeComment}
+          dislike={dislikeComment}
+        />
       </div>
-    );
-  });
+      <hr></hr>
+    </div>
+  ));
+
   return displayComments;
 }
 
 export default DisplayComments;
 
-// <DisplayReplies replies={comment.replies.text} />
+//showReplyBox={showReplyBox}
